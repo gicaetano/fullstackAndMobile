@@ -4,10 +4,10 @@ const styles = StyleSheet.create({
     card: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '90%',
-        marginVertical: 5,
-        padding: 15,
-        height: 80,
+        width: '95%',
+        marginVertical: 4,
+        padding: 10,
+        height: 85,
         shadowColor: '#000',
         shadowOffset: { 
             width: 0, 
@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     typeActive: {
-        width: 38,
-        height: 40,
-        margin: 5
+        width: 50,
+        height: 50,
+        //margin: 1
     },
     cardTitle: {
         marginLeft: 10,

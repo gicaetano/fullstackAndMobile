@@ -15,22 +15,36 @@ export default function Home(){
     const [filter, setFilter] = useState('today');
     const [tasks, setTasks] = useState([]);
     const [load, setload] = useState(false);
+    const [lateCount, setLateCount] = useState();
 
     async function loadTasks(){
        setload(true);
-      await api.get('/task/filter/all/11:11:11:11:11:11')
+      await api.get(`/task/filter/${filter}/11:11:11:11:11:11`)
       .then(response => {
          setTasks(response.data)
+         setload(false);
       });
+    }
+
+    async function lateVerify(){
+     await api.get(`/task/filter/late/11:11:11:11:11:11`)
+     .then(response => {
+        setLateCount(response.data.length)
+     });
+   }
+
+    function Notification(){
+       setFilter('late');
     }
 
     useEffect(() => {
        loadTasks();
-    })
+       lateVerify();
+    }, [filter])
 
     return (    
     <View style={styles.container}>
-        <Header showNotification={true} showBack={false}/> 
+        <Header showNotification={true} showBack={false} pressNotification={Notification} late={lateCount} /> 
 
         <View style={styles.filter}>
          <TouchableOpacity onPress={() => setFilter('all')}>
@@ -55,14 +69,18 @@ export default function Home(){
         </View>
 
         <View style={styles.title}>
-           <Text style={styles.titleText}>TAREFAS</Text>
+           <Text style={styles.titleText}>TAREFAS {filter == 'late' && ' ATRASADAS'} </Text>
         </View>
 
         <ScrollView style={styles.content} contentContainerStyle={{alignItems: 'center'}}>
-        <ActivityIndicator color='#ED145B' size={50}/>
-         {
-            tasks.map(t => (
-            <TaskCard done={false} />
+         {  
+            load 
+            ?
+            <ActivityIndicator color='#ED145B' size={50}/>
+            :
+            tasks.map(t => 
+            (
+               <TaskCard done={false} title={t.title} when={t.when} type={t.type}/>
             ))
          }
         </ScrollView>
