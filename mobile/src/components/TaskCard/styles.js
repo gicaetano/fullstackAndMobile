@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         width: '90%',
         marginVertical: 5,
         padding: 15,
-        height: 85,
+        height: 80,
         shadowColor: '#000',
         shadowOffset: { 
             width: 0, 
@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 6,
-        borderRadius: 8
+        elevation: 5,
+        borderRadius: 5
     },
     cardLeft: {
         flexDirection: 'row',
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     cardTime: {
         color: '#707070'
     },
-    cardDone: {
+    done: {
         opacity: 0.5
     }
 
