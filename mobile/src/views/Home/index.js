@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 
+import * as Network from 'expo-network';
+
 import styles from './styles';
 
 // components
@@ -16,10 +18,17 @@ export default function Home({ navigation }){
     const [tasks, setTasks] = useState([]);
     const [load, setload] = useState(false);
     const [lateCount, setLateCount] = useState();
+    const [macaddress, setMacaddress] = useState();
+
+    async function getMacAddress(){
+      await Network.getMacAddressAsync().then(mac => {
+          setMacaddress(mac);
+      });     
+  }
 
     async function loadTasks(){
        setload(true);
-      await api.get(`/task/filter/${filter}/11:11:11:11:11:11`)
+      await api.get(`/task/filter/${filter}/${macaddress}`)
       .then(response => {
          setTasks(response.data)
          setload(false);
@@ -41,10 +50,17 @@ export default function Home({ navigation }){
       navigation.navigate('Task');
     }
 
+    function Show(id){
+      navigation.navigate('Task', {idtask: id});
+    }
+
     useEffect(() => {
-       loadTasks();
+       getMacAddress().then(() => {
+          loadTasks();
+       });
+
        lateVerify();
-    }, [filter])
+    }, [filter, macaddress])
 
     return (    
     <View style={styles.container}>
@@ -84,7 +100,13 @@ export default function Home({ navigation }){
             :
             tasks.map(t => 
             (
-               <TaskCard done={false} title={t.title} when={t.when} type={t.type}/>
+               <TaskCard 
+               done={false} 
+               title={t.title} 
+               when={t.when} 
+               type={t.type}
+               onPress={() => Show(t._id)}
+               />
             ))
          }
         </ScrollView>

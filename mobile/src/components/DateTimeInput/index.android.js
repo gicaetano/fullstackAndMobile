@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   TouchableOpacity, 
   Image, 
-  TextInput,  
-  Alert
+  TextInput
 } from 'react-native';
  
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -29,7 +28,7 @@ export default function DateTimeInputAndroid({ type, save }){
     } else {
       setShow(false);
       setDateTime(format(new Date(currentDate),'HH:mm'));
-      save(format(new Date(currentDate), 'HH:mm'));
+      save(format(new Date(currentDate), 'HH:mm:ss'));
     }
   };
  
