@@ -15,22 +15,26 @@ export default function Header({ showNotification, showBack, late, pressNotifica
         navigation.navigate('Home');
     }
 
+    function openQrCode(){
+        navigation.navigate('QrCode');
+    }
+
     return(
         <View style={styles.header}>
 
-            {/* { showBack ? 
-            <TouchableOpacity style={styles.leftIcon}>
+            { showBack ? 
+            <TouchableOpacity style={styles.leftIcon} onPress={Back}>
              <Image source={back} style={styles.leftIconImage}/>
             </TouchableOpacity>
             :
-            <TouchableOpacity style={styles.leftIcon}>
+            <TouchableOpacity style={styles.leftIcon} onPress={openQrCode}>
              <Image source={qrcode} style={styles.leftIconImage}/>
             </TouchableOpacity>
-            } */}
+            }
 
-            <TouchableOpacity style={styles.leftIcon} onPress={Back}>
+            {/* <TouchableOpacity style={styles.leftIcon} onPress={Back}>
              <Image source={showBack ? back : qrcode} style={styles.leftIconImage}/>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <Image source={logo} style={styles.logo} />
 

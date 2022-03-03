@@ -17,7 +17,7 @@ const styles = StyleSheet.create ({
     },
     image: {
         width: 80,
-        height: 80
+        height: 80 
     },
     text: {
         position: 'relative',

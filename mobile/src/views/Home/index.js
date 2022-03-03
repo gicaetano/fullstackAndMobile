@@ -12,6 +12,7 @@ import TaskCard from '../../components/TaskCard';
 
 //API
 import api from '../../services/api';
+//import { Alert } from 'react-native-web';
 
 export default function Home({ navigation }){
     const [filter, setFilter] = useState('today');
@@ -36,7 +37,7 @@ export default function Home({ navigation }){
     }
 
     async function lateVerify(){
-     await api.get(`/task/filter/late/11:11:11:11:11:11`)
+     await api.get(`/task/filter/late/${macaddress}`)
      .then(response => {
         setLateCount(response.data.length)
      });
@@ -64,7 +65,7 @@ export default function Home({ navigation }){
 
     return (    
     <View style={styles.container}>
-        <Header showNotification={true} showBack={false} pressNotification={Notification} late={lateCount} /> 
+        <Header showNotification={true} showBack={false} pressNotification={Notification} late={lateCount} navigation={navigation}/> 
 
         <View style={styles.filter}>
          <TouchableOpacity onPress={() => setFilter('all')}>
@@ -101,7 +102,7 @@ export default function Home({ navigation }){
             tasks.map(t => 
             (
                <TaskCard 
-               done={false} 
+               done={t.done} 
                title={t.title} 
                when={t.when} 
                type={t.type}

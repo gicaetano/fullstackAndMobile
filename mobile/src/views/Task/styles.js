@@ -4,7 +4,7 @@ const styles = StyleSheet.create ({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'flex-start'
     },
     imageIcon: {
@@ -67,7 +67,6 @@ const styles = StyleSheet.create ({
      typeIconInative: {
         opacity: 0.5
      }
-
 });
 
 export default styles;
